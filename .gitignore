@@ -1,0 +1,18 @@
+.token
+**__pycache__**
+**local_**
+/dist/
+**/build/
+docs/.doctrees
+
+**_token.json
+**.log
+
+**.env
+**.venv
+**/junit.xml
+
+# Vim
+*.*~
+*.*.swp
+
