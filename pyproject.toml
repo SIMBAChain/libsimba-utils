@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "libsimba-utils"
-version = "0.1.0"
+version = "0.1.1"
 description = "libsimba Utilities"
 authors = [
     "SIMBA Chain Inc."
@@ -17,10 +17,10 @@ web3 = "5.30.0"
 pycryptodome = "3.15.0"
 
 [tool.poetry.dev-dependencies]
-pytest = "^7.1.1"
-black = "22.6.0"
+pytest = "^7.1.3"
+black = "22.8.0"
 isort = "5.10.1"
-taskipy = "1.10.2"
+taskipy = "1.10.3"
 coverage = "6.4.4"
 
 [tool.isort]
@@ -38,7 +38,7 @@ known_first_party="poetry"
 [tool.taskipy.tasks]
 isort = { cmd = "isort libsimba_utils", help = "Sort imports" }
 format = { cmd = "black libsimba_utils", help = "Run black code formatting" }
-tests = { cmd = "pytest --pyargs ./tests --junitxml=junit.xml --verbose", help = "Run tests" }
+tests = { cmd = "pytest --pyargs ./tests --junitxml=junit.xml --verbose -s", help = "Run tests" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
