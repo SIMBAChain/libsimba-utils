@@ -3,6 +3,8 @@ import binascii
 from hdwallet import BIP44HDWallet
 from hdwallet.cryptocurrencies import EthereumMainnet
 from hdwallet.utils import generate_mnemonic
+from web3.auto import w3
+
 from libsimba_utils.exceptions import (
     SimbaMnemonicException,
     SimbaPrivateKeyException,
@@ -10,7 +12,6 @@ from libsimba_utils.exceptions import (
     SimbaWalletNotFoundException,
 )
 from libsimba_utils.wallet_base import WalletBase
-from web3.auto import w3
 
 
 class Wallet(WalletBase):

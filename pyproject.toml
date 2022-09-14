@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "libsimba-utils"
-version = "0.1.1"
+version = "0.1.2"
 description = "libsimba Utilities"
 authors = [
     "SIMBA Chain Inc."
@@ -30,8 +30,7 @@ include_trailing_comma=true
 lines_after_imports=2
 lines_between_types=1
 use_parentheses=true
-src_paths=["config", "tests"]
-skip_glob="*/setup.py"
+src_paths=["libsimba_utils", "tests"]
 filter_files=true
 known_first_party="poetry"
 
