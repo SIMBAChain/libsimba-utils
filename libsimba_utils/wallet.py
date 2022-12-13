@@ -82,7 +82,7 @@ class Wallet(WalletBase):
         """
         return self.wallet is not None
 
-    def sign_transaction(self, payload) -> dict:
+    def sign_transaction(self, payload: dict) -> dict:
         """
         Sign the transaction payload with the wallet
 
@@ -97,12 +97,20 @@ class Wallet(WalletBase):
         try:
             transaction_template = {
                 "to": bytes.fromhex(payload["to"][2:]),
-                "value": 0,
+                "value": payload.get("value", 0),
                 "gas": payload["gas"],
-                "gasPrice": payload["gasPrice"],
                 "data": bytes.fromhex(payload["data"][2:]),
                 "nonce": payload["nonce"],
             }
+            if payload.get("chainId"):
+                transaction_template["chainId"] = payload["chainId"]
+            if payload.get("gasPrice"):
+                # legacy transaction
+                transaction_template["gasPrice"] = payload["gasPrice"]
+            else:
+                # EIP 1559 transaction
+                transaction_template["maxPriorityFeePerGas"] = payload["maxPriorityFeePerGas"]
+                transaction_template["maxFeePerGas"] = payload["maxFeePerGas"]
         except KeyError as exc:
             raise SimbaTransactionException(f"Missing field in transaction: {exc}")
 

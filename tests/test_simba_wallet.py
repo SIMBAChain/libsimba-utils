@@ -70,6 +70,7 @@ class TestWallet(unittest.TestCase):
         private_key = "1837c1be8e2995ec11cda2b066151be2cfb48adf9e47b151d46adab3a21cdf67"
         wallet.generate_from_private_key(private_key)
         transaction_payload = {
+            "chainId": "0x1",
             "to": "0xdea35e452b7367c43330e0065ec22538f545333b",
             "value": 0,
             "gas": "0x5d6a",
@@ -78,13 +79,36 @@ class TestWallet(unittest.TestCase):
             "nonce": "0x2",
         }
         signature = wallet.sign_transaction(transaction_payload)
-
         expected_sig = {
-            'rawTransaction': '0xf86b02843b9aca00825d6a94dea35e452b7367c43330e0065ec22538f545333b8088db7eff7c000000001ba0b4985b74787ac27bb1bde40adc97dabdb97a38623dd6150e8ec3b3fa5581e95aa00809c0633c1d03db77f7fbaf357da964c93d9d4a6f041b0aa92d83bb9481ab9a',
-            'hash': '0x5458728331d56f0b1279fc050f0f4488fef6f8c19ab19a95c2676f33545a73d9',
-            'r': 81685504697793611067721356979325529201491251746049320434783832819291893393754,
-            's': 3635732222913114008708416452560996557652025348427230851023132220765216287642,
-            'v': 27,
+            'rawTransaction': '0xf86b02843b9aca00825d6a94dea35e452b7367c43330e0065ec22538f545333b8088db7eff7c0000000026a0dc195956a449f5019aac98d79b50b742243224434d3c0a142c0177ffb30e3a95a00f62eaab7315a950af5735ad67be0eb7b95279514568eb8da91ca93b84c2dc7c',
+            'hash': '0x616452f0874117edf0bf0c2f39f13d16a83748814f681efdc573431fc5088fb6',
+            'r': 99553614456219982787208038055545973077114573530231040312394260751689716742805,
+            's': 6959463372013131084391662123144090401008917770820119608199796736569070771324,
+            'v': 38
+        }
+        self.assertEqual(signature, expected_sig)
+
+    def test_wallet_sign_transaction_1559(self):
+        wallet = Wallet()
+        private_key = "1837c1be8e2995ec11cda2b066151be2cfb48adf9e47b151d46adab3a21cdf67"
+        wallet.generate_from_private_key(private_key)
+        transaction_payload = {
+            "chainId": "0x1",
+            "to": "0xdea35e452b7367c43330e0065ec22538f545333b",
+            "value": 0,
+            "gas": "0x5d6a",
+            "maxPriorityFeePerGas": "0x3b9aca00",
+            "maxFeePerGas": "0x3b9aca00",
+            "data": "0xdb7eff7c00000000",
+            "nonce": "0x3",
+        }
+        signature = wallet.sign_transaction(transaction_payload)
+        expected_sig = {
+            'rawTransaction': '0x02f8720103843b9aca00843b9aca00825d6a94dea35e452b7367c43330e0065ec22538f545333b8088db7eff7c00000000c001a0a2bcfd31e17602c4e1a7ef22e2b4545f0819f9609e58d191b7e8c146b68b070fa053cae089a194142eff775deb9bdcdfc11db444ca2845d3536f25ee195d8a9c5a',
+            'hash': '0xf3bfb32dbc6af1bb189fb264d40ff226af04ee6ff340585cbc38dc34222acc83',
+            'r': 73608596205274428333047184892738464462600099222674297925900741474549985117967,
+            's': 37900419241206913416517940217238883594964076317649986093305289145434189241434,
+            'v': 1
         }
         self.assertEqual(signature, expected_sig)
 
